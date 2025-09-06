@@ -1,0 +1,44 @@
+services:
+  wealthflow-db:
+    image: postgres:15
+    container_name: wealthflow-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: wealthflow
+    ports:
+      - "5432:5432"
+    volumes:
+      - wealthflow_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d wealthflow"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: .
+    container_name: wealthflow-api
+    restart: always
+    depends_on:
+      wealthflow-db:
+        condition: service_healthy
+    environment:
+      APP_PORT: 3000
+      DATABASE_HOST: wealthflow-db   # langsung pakai service name
+      DATABASE_PORT: 5432
+      DATABASE_USER: postgres
+      DATABASE_PASS: postgres
+      DATABASE_NAME: wealthflow
+      JWT_SECRET: supersecretkey
+      JWT_EXPIRES_IN: 1h
+    ports:
+      - "3000:3000"
+    command: npm run start:dev
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+
+volumes:
+  wealthflow_data:
