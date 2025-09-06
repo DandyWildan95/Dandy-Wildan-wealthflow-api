@@ -1,0 +1,143 @@
+{
+    "info": {
+      "name": "Wealthflow API",
+      "_postman_id": "f7c5a9f4-1234-4f2a-8c92-abc123456789",
+      "description": "Postman collection untuk demo Wealthflow API (NestJS + PostgreSQL + JWT).",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Users",
+        "item": [
+          {
+            "name": "Get All Users",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "http://localhost:3000/users",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["users"]
+              }
+            }
+          },
+          {
+            "name": "Create User",
+            "request": {
+              "method": "POST",
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"username\": \"dandy\",\n  \"password\": \"123456\"\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/users",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["users"]
+              }
+            }
+          },
+          {
+            "name": "Get User by ID",
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "http://localhost:3000/users/1",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["users", "1"]
+              }
+            }
+          },
+          {
+            "name": "Update User",
+            "request": {
+              "method": "PUT",
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"username\": \"dandy_updated\",\n  \"password\": \"654321\"\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/users/1",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["users", "1"]
+              }
+            }
+          },
+          {
+            "name": "Delete User",
+            "request": {
+              "method": "DELETE",
+              "header": [],
+              "url": {
+                "raw": "http://localhost:3000/users/1",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["users", "1"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Auth",
+        "item": [
+          {
+            "name": "Login",
+            "request": {
+              "method": "POST",
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"username\": \"dandy\",\n  \"password\": \"123456\"\n}"
+              },
+              "url": {
+                "raw": "http://localhost:3000/auth/login",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["auth", "login"]
+              }
+            }
+          },
+          {
+            "name": "Get Profile",
+            "request": {
+              "method": "GET",
+              "header": [
+                {
+                  "key": "Authorization",
+                  "value": "Bearer {{jwt_token}}",
+                  "type": "text"
+                }
+              ],
+              "url": {
+                "raw": "http://localhost:3000/auth/profile",
+                "protocol": "http",
+                "host": ["localhost"],
+                "port": "3000",
+                "path": ["auth", "profile"]
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "variable": [
+      {
+        "key": "jwt_token",
+        "value": ""
+      }
+    ]
+  }
+  
